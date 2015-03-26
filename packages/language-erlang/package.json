@@ -1,0 +1,25 @@
+{
+  "description": "Erlang language support for Atom.",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "license": "MIT",
+  "name": "language-erlang",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathanmarvens/atom-language-erlang"
+  },
+  "version": "2.0.0",
+  "readme": "# language-erlang package\n\nErlang language support for Atom.\n\n-----\n\nAdds syntax highlighting and snippets to Erlang files in Atom.\n\nCopyright (c) 2014 [Jonathan Barronville](mailto:jonathan@belairlabs.com \"jonathan@belairlabs.com\")\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/jonathanmarvens/atom-language-erlang/issues"
+  },
+  "homepage": "https://github.com/jonathanmarvens/atom-language-erlang",
+  "_id": "language-erlang@2.0.0",
+  "dist": {
+    "shasum": "ce713de592900c488a73024a058048443bed2fb6"
+  },
+  "_resolved": "/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-114718-34041-7opam1/package.tgz",
+  "_from": "/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-114718-34041-7opam1/package.tgz"
+}

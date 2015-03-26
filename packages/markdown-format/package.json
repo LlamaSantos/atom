@@ -1,0 +1,43 @@
+{
+  "name": "markdown-format",
+  "main": "./lib/markdown-format",
+  "version": "2.5.0",
+  "description": "Formats your Markdown text on save.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shurcooL/atom-markdown-format"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "Markdown Format Package\n=======================\n\nFormats your Markdown text (to look like the rendered HTML) on save.\n\n![Markdown Format Demo](https://github.com/shurcooL/atom-markdown-format/blob/master/Demo.gif?raw=true)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/shurcooL/atom-markdown-format/issues"
+  },
+  "homepage": "https://github.com/shurcooL/atom-markdown-format",
+  "_id": "markdown-format@2.5.0",
+  "dist": {
+    "shasum": "c4546ba75308b2bb00d69b5505b7724ef9fceff9"
+  },
+  "_resolved": "/private/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-1141126-67161-1qhfnxb/package.tgz",
+  "_from": "/private/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-1141126-67161-1qhfnxb/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/markdown-format.coffee"
+      ],
+      ".js": [
+        "lib/markdownfmt.js"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

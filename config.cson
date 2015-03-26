@@ -1,0 +1,29 @@
+"*":
+  "exception-reporting":
+    userId: "c93349e2-4b82-5b2d-3b83-24ec4c7dac5d"
+  welcome:
+    showOnStartup: false
+  metrics:
+    userId: "5f6858733c8d9652720bef31059c16c4e3e50248"
+  autocomplete:
+    includeCompletionsFromAllBuffers: true
+  "autocomplete-plus":
+    includeCompletionsFromAllBuffers: true
+  term2:
+    openPanesInSameSplit: true
+  core:
+    themes: [
+      "atom-dark-ui"
+      "monokai"
+    ]
+    disabledPackages: [
+      "jshint"
+    ]
+  editor:
+    invisibles: {}
+    fontSize: 18
+  "tree-view": {}
+  react: {}
+  emmet: {}
+  jshint:
+    supportLintingJsx: true

@@ -1,0 +1,87 @@
+{
+  "name": "elixir-cmd",
+  "main": "./lib/elixir-cmd",
+  "version": "0.2.5",
+  "description": "Elixir Commands integration with atom.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerp/elixir-cmd"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "ansi-to-html": ">0.1.0"
+  },
+  "readme": "# Elixir Commands integration with atom.io\n\n* mix compile\n* mix test\n* module and function help (project must compile)\n\n![A screenshot the package](https://raw.githubusercontent.com/jerp/elixir-cmd/master/elixi-cmd.gif)\n\nit is active when the project has a mix file in its root directory\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/jerp/elixir-cmd/issues"
+  },
+  "homepage": "https://github.com/jerp/elixir-cmd",
+  "_id": "elixir-cmd@0.2.5",
+  "_shasum": "d81943de2daea9cd9da10620fce497a02d12d3b5",
+  "_resolved": "file:../d-115225-90021-zuwr9w/package.tgz",
+  "_from": "../d-115225-90021-zuwr9w/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "ansi-to-html",
+        "version": "0.3.0",
+        "path": "node_modules/ansi-to-html/lib/ansi_to_html.js"
+      },
+      {
+        "name": "entities",
+        "version": "1.1.1",
+        "path": "node_modules/ansi-to-html/node_modules/entities/index.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/elixir-cmd-view.coffee",
+        "lib/elixir-cmd.coffee"
+      ],
+      ".js": [
+        "node_modules/ansi-to-html/gruntFile.js",
+        "node_modules/ansi-to-html/lib/ansi_to_html.js",
+        "node_modules/ansi-to-html/node_modules/entities/index.js",
+        "node_modules/ansi-to-html/node_modules/entities/lib/decode.js",
+        "node_modules/ansi-to-html/node_modules/entities/lib/decode_codepoint.js",
+        "node_modules/ansi-to-html/node_modules/entities/lib/encode.js"
+      ],
+      ".json": [
+        "node_modules/ansi-to-html/node_modules/entities/maps/decode.json",
+        "node_modules/ansi-to-html/node_modules/entities/maps/entities.json",
+        "node_modules/ansi-to-html/node_modules/entities/maps/legacy.json",
+        "node_modules/ansi-to-html/node_modules/entities/maps/xml.json",
+        "node_modules/ansi-to-html/node_modules/entities/package.json",
+        "node_modules/ansi-to-html/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec"
+        ],
+        "dependencies": {
+          "ansi-to-html": ">0.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/ansi-to-html",
+          "node_modules/ansi-to-html/lib",
+          "node_modules/ansi-to-html/test"
+        ],
+        "dependencies": {
+          "entities": "^1.1.1"
+        }
+      }
+    ]
+  }
+}
