@@ -2,6 +2,8 @@
 
 Add Travis CI status of the project to the Atom status bar.
 
+![Atom Status Bar Screenshot](travis_ci_status.png)
+
 ## Installing
 
 Use the Atom package manager, which can be found in the Settings view or run
@@ -18,6 +20,12 @@ The build status is updated when the project is first opened in Atom and from
 then on whenever the "status" of the project repository changes. The handling of
 these events was borrowed from the `git-view.coffee` part of the `status-bar`
 package.
+
+### Remote Name
+
+If the remote repository Travis is configured to build is named something other
+than `origin`, you can specify a different name in the **Travis Ci Remote Name**
+field in the settings view.
 
 ### Travis Pro
 

@@ -1,7 +1,7 @@
 {
   "name": "markdown-format",
   "main": "./lib/markdown-format",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Formats your Markdown text on save.",
   "repository": {
     "type": "git",
@@ -18,12 +18,10 @@
     "url": "https://github.com/shurcooL/atom-markdown-format/issues"
   },
   "homepage": "https://github.com/shurcooL/atom-markdown-format",
-  "_id": "markdown-format@2.5.0",
-  "dist": {
-    "shasum": "c4546ba75308b2bb00d69b5505b7724ef9fceff9"
-  },
-  "_resolved": "/private/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-1141126-67161-1qhfnxb/package.tgz",
-  "_from": "/private/var/folders/4b/f1rwk_s17f53g74pf1_qlvj0jdr73k/T/d-1141126-67161-1qhfnxb/package.tgz",
+  "_id": "markdown-format@2.5.1",
+  "_shasum": "16c91f8f1ac4902d19b712e33d39b593c0c80697",
+  "_resolved": "file:../d-11546-33330-1fimwcr/package.tgz",
+  "_from": "../d-11546-33330-1fimwcr/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

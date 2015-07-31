@@ -13,17 +13,31 @@
     openPanesInSameSplit: true
   core:
     themes: [
-      "atom-dark-ui"
-      "monokai"
+      "seti-ui"
+      "seti-syntax"
     ]
     disabledPackages: [
       "jshint"
+      "tree-view"
     ]
   editor:
     invisibles: {}
+    showInvisibles: true
     fontSize: 18
-  "tree-view": {}
   react: {}
   emmet: {}
   jshint:
     supportLintingJsx: true
+  "atom-beautify":
+    _analyticsUserId: "5f38c1f9-e19b-473f-959f-d8138b6746a8"
+    html_indent_inner_html: true
+    html_end_with_newline: true
+  iex:
+    colors: {}
+  tabs:
+    showIcons: true
+    usePreviewTabs: true
+  "file-watcher":
+    promptWhenFileHasChangedOnDisk: false
+  nuclide:
+    remoteProjectsConfig: []

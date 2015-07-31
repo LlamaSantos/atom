@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 shell = require 'shell'
+{Disposable} = require 'atom'
 
 TravisCi = null
 
@@ -16,6 +17,9 @@ module.exports =
     personalAccessToken:
         type: 'string'
         default: '<Your personal GitHub access token>'
+    travisCiRemoteName:
+        type: 'string'
+        default: 'origin'
 
   # Internal: The build matrix bottom panel view.
   buildMatrixView: null
@@ -27,22 +31,25 @@ module.exports =
   #
   # Returns nothing.
   activate: ->
-    BuildStatusView ?= require './build-status-view'
-    BuildMatrixView ?= require './build-matrix-view'
-
-    Promise.all(
+    @activationPromise = Promise.all(
       atom.project.getDirectories().map(
         atom.project.repositoryForDirectory.bind(atom.project)
       )
     ).then (repos) =>
-      @isTravisProject((config) => config and @init()) if @hasGitHubRepo(repos)
+      new Promise((resolve) =>
+        if @hasGitHubRepo(repos)
+          @isTravisProject((config) ->
+            resolve() if config
+          )
+      )
+
 
   # Internal: Deactive the package and destroys any views.
   #
   # Returns nothing.
   deactivate: ->
     atom.travis = null
-    @buildStatusView?.destroy()
+    @statusBarSubscription?.dispose()
     @buildMatrixView?.destroy()
 
   # Internal: Serialize each view state so it can be restored when activated.
@@ -55,9 +62,9 @@ module.exports =
   # Returns true if the repository has a GitHub remote, else false
   hasGitHubRepo: (repos) ->
     return false if repos.length is 0
-
+    name = atom.config.get('travis-ci-status.travisCiRemoteName')
     for repo in repos
-      return true if /(.)*github\.com/i.test(repo.getOriginUrl())
+      return true if /(.)*github\.com/i.test(repo.getConfigValue("remote.#{name}.url"))
 
     false
 
@@ -66,8 +73,9 @@ module.exports =
   # Returns a string of the name with owner, or null if the origin URL doesn't
   # exist.
   getNameWithOwner: ->
-    repo = atom.project.getRepo()
-    url  = repo.getOriginUrl()
+    repo = atom.project.getRepositories()[0]
+    name = atom.config.get('travis-ci-status.travisCiRemoteName')
+    url  = repo.getConfigValue("remote.#{name}.url")
 
     return null unless url?
 
@@ -80,7 +88,7 @@ module.exports =
   isTravisProject: (callback) ->
     return unless callback instanceof Function
 
-    projPath = atom.project.getPath()
+    projPath = atom.project.getPaths()[0]
     return callback(false) unless projPath?
 
     conf = path.join(projPath, '.travis.yml')
@@ -89,7 +97,7 @@ module.exports =
   # Internal: initializes any views.
   #
   # Returns nothing
-  init: ->
+  init: (statusBar) ->
     TravisCi ?= require 'travis-ci'
 
     atom.travis = new TravisCi(
@@ -100,19 +108,14 @@ module.exports =
     atom.commands.add 'atom-workspace', 'travis-ci-status:open-on-travis', =>
       @openOnTravis()
 
-    createStatusEntry = =>
-      nwo = @getNameWithOwner()
-      @buildMatrixView = new BuildMatrixView(nwo)
-      @buildStatusView = new BuildStatusView(nwo, @buildMatrixView)
+    BuildStatusView ?= require './build-status-view'
+    BuildMatrixView ?= require './build-matrix-view'
 
-    statusBar = document.querySelector("status-bar")
+    nwo = @getNameWithOwner()
+    @buildMatrixView = new BuildMatrixView(nwo)
+    @buildStatusView = new BuildStatusView(nwo, @buildMatrixView, statusBar)
 
-    if statusBar?
-      createStatusEntry()
-    else
-      atom.packages.once 'activated', -> createStatusEntry()
-
-    null
+    return
 
   # Internal: Open the project on Travis CI in the default browser.
   #
@@ -126,3 +129,8 @@ module.exports =
       'travis-ci.org'
 
     shell.openExternal("https://#{domain}/#{nwo}")
+
+  consumeStatusBar: (statusBar) ->
+    @activationPromise.then( => @init(statusBar))
+    @statusBarSubscription = new Disposable =>
+      @buildStatusView?.destroy()

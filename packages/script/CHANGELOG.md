@@ -1,3 +1,68 @@
+## 2.26.3
+* Support for NCL
+
+## 2.26.2
+* Escape strings for javac
+
+## 2.26.1
+* Support for C based runner on Linux
+
+## 2.26.0
+* Make height of atom script view dynamic
+* No one reads these. If they did, they might have commented on this line.
+
+## 2.25.3
+* Fix C/C++ grammar to allow symbols and spaces in path
+
+## 2.25.2
+* Support for MongoDB JavaScript
+* More unicorns, less turtles
+
+## 2.25.1
+* Fix typo in Perl 6 Grammar
+
+## 2.25.0
+* Behat support no longer uses `--ansi` parameter (support Behat 3)
+* Perl 6 support
+* Graphviz support
+
+## 2.24.0
+* RANT Support
+* Switched to using activation commands
+* Cleaned up kotlinc temp files
+* (Slight) support for Java
+* Babel JS support
+
+## 2.23.0
+* Added scriptcs support
+
+## 2.22.0
+* Removed support for Atom Achievements :( (breaks the coming 1.0 API)
+* Support for Kotlinc
+* New way for us to manage contributions and changelog
+
+## 2.21.0
+* Update BufferedProcess API
+* Addressed deprecations from the Atom API
+* Use the new Path API
+
+## 2.20.0
+* Add OCaml support
+* :checkered_flag: Enhance selection based Lua support
+
+## 2.19.0
+* Add Racket support
+* Add Forth support
+
+## 2.18.0
+* Fixed scrolling with output
+
+## 2.17.1
+* Updates keyboard shortcuts for running in Windows
+
+## 2.17.0
+* TODO...
+
 ## 2.16.0
 * Add D support
 * Add Rust support

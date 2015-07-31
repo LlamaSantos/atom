@@ -1,3 +1,16 @@
+## 0.2.9 - replace openSync() with open()
+* for atom 0.207
+
+## 0.2.8 - project.resolve deprecated
+* for atom 0.207
+
+## 0.2.7 - Remove deprecated calls in specs
+* for atom 0.207
+
+## 0.2.6 - Fixing key binding issue
+* for atom 0.2
+* remove deprecated warnings
+
 ## 0.2.5 - Fixing key binding issue
 * fix key binding issue
 

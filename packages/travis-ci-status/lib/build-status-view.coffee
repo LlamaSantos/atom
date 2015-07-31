@@ -14,7 +14,7 @@ class BuildStatusView extends View
   #
   # nwo    - The string of the repo owner and name.
   # matrix - The build matrix view.
-  initialize: (@nwo, @matrix) ->
+  initialize: (@nwo, @matrix, @statusBar) ->
     atom.commands.add 'atom-workspace', 'travis-ci-status:toggle', => @toggle()
     this.on 'click', => @matrix.toggle()
     @attach()
@@ -29,10 +29,13 @@ class BuildStatusView extends View
   #
   # Returns nothing.
   attach: ->
-    statusBar = document.querySelector("status-bar")
+    @statusBarTile = @statusBar.addLeftTile(item: this, priority: 100)
 
-    if statusBar?
-      @statusBarTile = statusBar.addLeftTile(item: this, priority: 100)
+  # Internal: Detach the status bar segment to the status bar.
+  #
+  # Returns nothing.
+  detach: ->
+    @statusBarTile?.destroy()
 
   # Internal: Destroy the view and tear down any state.
   #
@@ -68,7 +71,9 @@ class BuildStatusView extends View
     @unsubscribe(@repo) if @repo?
 
     repos = atom.project.getRepositories()
-    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginUrl()))
+    console.log "DEBUG:", repos
+    name = atom.config.get('travis-ci-status.travisCiRemoteName')
+    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getConfigValue("remote.#{name}.url")))
     @repo = repo[0]
 
     $(@repo).on 'status-changed', (path, status) =>
