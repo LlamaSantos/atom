@@ -10,6 +10,7 @@
  */
 
 var React = require('react-for-atom');
+var {TabManager} = require('../lib/TabManager');
 var QuickSelectionComponent = require('../lib/QuickSelectionComponent');
 var QuickSelectionProvider = require('../lib/QuickSelectionProvider');
 
@@ -33,6 +34,7 @@ class TestQuickSelectionProvider extends QuickSelectionProvider {
 describe('QuickSelectionComponent', () => {
   var componentRoot: Node;
   var component: QuickSelectionComponent;
+  var tabManager: TabManager;
 
   beforeEach(() => {
     spyOn(Date, 'now').andCallFake(() => window.now);
@@ -41,8 +43,13 @@ describe('QuickSelectionComponent', () => {
     document.body.appendChild(componentRoot);
 
     var testProvider = new TestQuickSelectionProvider({});
+    tabManager = new TabManager();
     component = React.render(
-      <QuickSelectionComponent provider={testProvider} />,
+      <QuickSelectionComponent
+        provider={testProvider}
+        tabs={tabManager.getTabs()}
+        initialActiveTab={tabManager.getDefaultTab()}
+      />,
       componentRoot
     );
   });
@@ -50,6 +57,8 @@ describe('QuickSelectionComponent', () => {
   afterEach(() => {
     React.unmountComponentAtNode(componentRoot);
     document.body.removeChild(componentRoot);
+    tabManager.dispose();
+    tabManager = null;
   });
 
   // Updates the component to be using a TestQuickSelectionProvider that will serve @items, then
@@ -61,7 +70,11 @@ describe('QuickSelectionComponent', () => {
         resolve(component);
       });
       component = React.render(
-        <QuickSelectionComponent provider={new TestQuickSelectionProvider(items)} />,
+        <QuickSelectionComponent
+          provider={new TestQuickSelectionProvider(items)}
+          tabs={tabManager.getTabs()}
+          initialActiveTab={tabManager.getDefaultTab()}
+        />,
         componentRoot
       );
       window.advanceClock(250);
@@ -95,7 +108,7 @@ describe('QuickSelectionComponent', () => {
 
     it('should select on the core:confirm command (enter)', () => {
       withItemsSetTo({testDirectory: {testProvider: Promise.resolve({results: [1, 2, 3]})}}, () => {
-        var componentNode = component.getDOMNode();
+        var componentNode = React.findDOMNode(component);
 
         var selectedItemIndex = component.getSelectedIndex();
         expect(selectedItemIndex.selectedDirectory).toBe('');
@@ -131,7 +144,7 @@ describe('QuickSelectionComponent', () => {
   describe('Cancellation', () => {
     it('should cancel on the core:cancel command (esc)', () => {
       withItemsSetTo({testDirectory: {testProvider: Promise.resolve({results: [1, 2, 3]})}}, () => {
-        var componentNode = component.getDOMNode();
+        var componentNode = React.findDOMNode(component);
 
         waitsForPromise(() => new Promise((resolve, reject) => {
             component.onCancellation((item) => {
@@ -235,7 +248,7 @@ describe('QuickSelectionComponent', () => {
 
     it('should move the selection appropriately on core:move* commands', () => {
       withItemsSetTo({testDirectory: {testProvider: Promise.resolve({results: [1, 2, 3]})}}, () => {
-        var componentNode = component.getDOMNode();
+        var componentNode = React.findDOMNode(component);
 
         var steps = [
           {expectedIndex: 0, nextCommand: 'core:move-up'},
@@ -324,5 +337,12 @@ describe('QuickSelectionComponent', () => {
         }));
       });
     });
+
+    it('should allow input text to be set after mount', () => {
+      component.setInputValue('foo');
+      var editor = component.getInputTextEditor().model;
+      expect(editor.getText()).toBe('foo');
+    });
+
   });
 });

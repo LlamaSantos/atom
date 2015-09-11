@@ -46,15 +46,20 @@ describe('FileTreeController', () => {
   var fileTreeController;
   var treeComponent;
   var fixturesPath;
-  var rootNodes;
+  var rootNodes: Array<LazyFileTreeNode> = [];
+  var workspaceElement;
 
   beforeEach(() => {
     waitsForPromise(async () => {
+      // Attach the workspace to the jasmine DOM.
+      workspaceElement = atom.views.getView(atom.workspace);
+      jasmine.attachToDOM(workspaceElement);
+
       // Set the children of 'fixtures' as the root paths.
-      fixturesPath = atom.project.getPaths()[0];
-      var rootPaths = rootBasenames.map((basename) => path.join(fixturesPath, basename));
+      var rootPaths = rootBasenames.map(basename => path.join(__dirname, 'fixtures', basename));
       atom.project.setPaths(rootPaths);
 
+      // Create a FileTreeController instance.
       fileTreeController = new FileTreeController();
       await waitForRender();
       treeComponent = fileTreeController.getTreeComponent();
@@ -65,10 +70,47 @@ describe('FileTreeController', () => {
 
   afterEach(() => {
     temp.cleanup();
-    fileTreeController.destroy();
+    fileTreeController && fileTreeController.destroy();
   });
 
-  describe('deleteSelection', () => {
+  xdescribe('searchInDirectory', () => {
+    var projectFindView;
+    beforeEach(() => {
+      atom.packages.activatePackage('find-and-replace').then((result: atom$Package) => {
+        projectFindView = result.mainModule.projectFindView;
+      });
+    });
+
+    it('prefills ProjectFindView with the paths of the selected directories', () => {
+      runs(() => {
+        // Expand the root nodes.
+        rootNodes.forEach(rootNode => {
+          var rootNodeChildren = rootNode.getCachedChildren();
+          treeComponent.expandNodeKey(rootNode.getKey());
+
+          // Expand the first directory under the first root.
+          var directoryNode = rootNodeChildren.get(0);
+          treeComponent._toggleNodeSelected(directoryNode);
+        });
+
+        // Try to search in the selected directories.
+        fileTreeController.searchInDirectory();
+      });
+
+      // Wait for the ProjectFindView to appear and be filled in.
+      waitsFor('projectFindView to be created.', () => projectFindView);
+      waitsFor('projectFindView.pathsEditor to be created.', () => projectFindView && projectFindView.pathsEditor);
+      waitsFor('projectFindView.pathsEditor to have text.', () => projectFindView && projectFindView.pathsEditor
+        && projectFindView.pathsEditor.getText().length > 0);
+
+      runs(() => {
+        // Expect the ProjectFindView to be prefilled with the selected directories.
+        expect(projectFindView.pathsEditor.getText()).toEqual('dir1');
+      });
+    });
+  });
+
+  xdescribe('deleteSelection', () => {
     it('checks if deleteSelection is called when core:backspace is triggered', () => {
       // Find div element
       var el = React.findDOMNode(TestUtils.findRenderedDOMComponentWithClass(
@@ -94,7 +136,7 @@ describe('FileTreeController', () => {
     });
   });
 
-  describe('getNodeAndSetState', () => {
+  xdescribe('getNodeAndSetState', () => {
     it('reuses an existing node if possible', () => {
       var rootDirectory = atom.project.getDirectories()[0];
       var originalNode = fileTreeController.getNodeAndSetState(rootDirectory);
@@ -107,7 +149,21 @@ describe('FileTreeController', () => {
     });
   });
 
-  describe('revealActiveFile', () => {
+  xdescribe('openDuplicateDialog', () => {
+    it('gets called when triggering nuclide-file-tree:duplicate-selection', () => {
+      var el = React.findDOMNode(TestUtils.findRenderedDOMComponentWithClass(
+        fileTreeController._panelController.getChildComponent(),
+        'nuclide-file-tree'
+      ));
+
+      // Mock method
+      spyOn(fileTreeController, 'openDuplicateDialog');
+      atom.commands.dispatch(el, 'nuclide-file-tree:duplicate-selection');
+      expect(fileTreeController.openDuplicateDialog.calls.length).toBe(1);
+    });
+  });
+
+  xdescribe('revealActiveFile', () => {
     it('succeeds for a deeply-nested file', () => {
       waitsForPromise(async () => {
         var filePath = path.join(fixturesPath, 'dir1/dir1/dir1/file1');

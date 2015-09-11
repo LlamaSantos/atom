@@ -17,13 +17,13 @@
       "seti-syntax"
     ]
     disabledPackages: [
-      "jshint"
       "tree-view"
     ]
   editor:
     invisibles: {}
     showInvisibles: true
     fontSize: 18
+    scrollPastEnd: true
   react: {}
   emmet: {}
   jshint:
@@ -41,3 +41,7 @@
     promptWhenFileHasChangedOnDisk: false
   nuclide:
     remoteProjectsConfig: []
+  "linter-eslint":
+    useGlobalEslint: true
+  linter:
+    showErrorPanel: false

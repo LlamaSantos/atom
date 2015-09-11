@@ -148,7 +148,7 @@ module.exports =
       command: "node"
       args: (context) -> [context.filepath]
 
-  'Babel ES6 Javascript':
+  'Babel ES6 JavaScript':
     "Selection Based":
       command: "babel-node"
       args: (context) -> ['-e', context.getCode()]
@@ -431,3 +431,16 @@ module.exports =
     "File Based":
       command: "xcrun"
       args: (context) -> ['swift', context.filepath]
+
+  TypeScript:
+    "Selection Based":
+      command: "bash"
+      args: (context) ->
+        code = context.getCode(true)
+        tmpFile = GrammarUtils.createTempFileWithCode(code, ".ts")
+        jsFile = tmpFile.replace /\.ts$/, ".js"
+        args = ['-c', "tsc --out '#{jsFile}' '#{tmpFile}' && node '#{jsFile}'"]
+        return args
+    "File Based":
+      command: "bash"
+      args: (context) -> ['-c', "tsc '#{context.filepath}' --out /tmp/js.out && node /tmp/js.out"]

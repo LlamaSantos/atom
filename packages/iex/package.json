@@ -1,7 +1,7 @@
 {
   "name": "iex",
   "main": "./lib/iex",
-  "version": "0.9.11",
+  "version": "0.9.13",
   "description": "Run an Elixir IEx (REPL) session in an Atom window.",
   "repository": {
     "type": "git",
@@ -19,16 +19,16 @@
     "atom-space-pen-views": "^2.0.3",
     "uuid": "^2.0.1"
   },
-  "readme": "# iex package\n\nThis package provides Elixir developers with the ability to run an Elixir IEx\n(REPL) session in an Atom window. It has only been tested on OS X and is\nunlikely to work properly (or at all) on other platforms.\n\n![iex Screenshot](https://github.com/indiejames/atom-iex/raw/master/atom-iex.gif)\n\n\n### Installation\n\n```\napm install iex\n```\n\nIt is _highly recommended_ that you add the key bindings below. These can be\ncustomized as desired. They are not set by default to avoid conflicts with\nother packages.\n\n### Features\n\nAside from typing directly in the IEx session, the plugin provides actions\nto improve workflow:\n\n* Reset the project, restarting the application and compiling any files that\nhave changed since the last restart\n* Run all tests in the project\n* Run all tests in the currently open editor\n* Run the test in the open editor in which the cursor resides\n* Execute the currently selected text\n\nThese actions depend on `mix`, so they only work for `mix` generated projects\nand require a `mix.exs` file at the top level.\n\n### Key Bindings\n\nCustomizing Key Bindings:\n\n```cson\n'atom-workspace':\n  'cmd-alt-l': 'iex:open'\n  'cmd-alt-l down': 'iex:open-split-down'\n  'cmd-alt-l up': 'iex:open-split-up'\n  'cmd-alt-l left': 'iex:open-split-left'\n  'cmd-alt-l right': 'iex:open-split-right'\n  'cmd-alt-e': 'iex:reset'\n  'cmd-alt-a': 'iex:run-all-tests'\n  'cmd-alt-h': 'iex:help'\n  'cmd-alt-p': 'iex:pretty-print'\n\n'.editor':\n  'cmd-alt-x': 'iex:run-tests'\n  'cmd-alt-j': 'iex:run-test'\n  'cmd-alt-b': 'iex:pipe'\n```\n\nAdding these will provide the following:\n\n#### Key Bindings and Events\n\n| key binding | event | action |\n| ----------- | ----- | ------ |\n| `cmd + alt + l` | `iex:open` | Opens new IEx in new tab pane |\n| `cmd + alt + l down` | `iex:open-split-up` | Opens new IEx tab pane in up split |\n| `cmd + alt + l right` | `iex:open-split-right` | Opens new IEx tab pane in right split |\n| `cmd + alt + l down` | `iex:open-split-down` | Opens new IEx tab pane in down split |\n| `cmd + alt + l left` | `iex:open-split-left` | Opens new IEx tab pane in left split |\n| `cmd + alt + e` | `iex:reset` | Stops the application, compiles any changed files with mix, then restarts the application. |\n| `cmd + alt + a` | `iex:run-all-tests` | Run all the test in the project |\n| `cmd + alt + x` | `iex:run-tests` | Run all the tests in the active editor |\n| `cmd + alt + j` | `iex:run-test` | Run the test in which the cursor lies |\n| `cmd + alt + h` | `iex:help` | Print the docstring for the function or module under the cursor\n| `cmd + alt + b` | `iex:pipe` | Pipe the currently selected text to the REPL and execute it |\n| `cmd + alt + p` | `iex:pretty-print` | Pretty print the last evaluated expression |\n\n### Fonts\nYou can set the font size by adding the following to your Atom stylesheet.\n`Atom menu - Open your stylesheet)`\nChange the font, font-size, and heights as desired.\n\n    .iex {\n      .terminal {\n        font-family: Menlo, Monaco, Inconsolata, monospace;\n        font-size: 14px;\n\n         div {\n          height: 18px;\n          line-height: 18px;\n\n        }\n      }\n    }\n\n### Contributions\n\nThis package is originally based on the [Term2 Atom package](https://atom.io/packages/term2) with heavy modifications. Feel free to submit bugs or issue pull requests.\n",
+  "readme": "# iex package\n\nThis package provides Elixir developers with the ability to run an Elixir IEx\n(REPL) session in an Atom window. It has only been tested on OS X and is\nunlikely to work properly (or at all) on other platforms.\n\n![iex Screenshot](https://github.com/indiejames/atom-iex/raw/master/atom-iex.gif)\n\n\n### Installation\n\n```\napm install iex\n```\n\nIt is _highly recommended_ that you add the key bindings below. These can be\ncustomized as desired. They are not set by default to avoid conflicts with\nother packages.\n\n### Features\n\nAside from typing directly in the IEx session, the plugin provides actions\nto improve workflow:\n\n* Reset the project, restarting the application and compiling any files that\nhave changed since the last restart\n* Run all tests in the project\n* Run all tests in the currently open editor\n* Run the test in the open editor in which the cursor resides\n* Execute the currently selected text\n\nThese actions depend on `mix`, so they only work for `mix` generated projects\nand require a `mix.exs` file at the top level.\n\n### Key Bindings\n\nCustomizing Key Bindings:\n\n```cson\n'atom-workspace':\n  'cmd-alt-l': 'iex:open'\n  'cmd-alt-l down': 'iex:open-split-down'\n  'cmd-alt-l up': 'iex:open-split-up'\n  'cmd-alt-l left': 'iex:open-split-left'\n  'cmd-alt-l right': 'iex:open-split-right'\n  'cmd-alt-e': 'iex:reset'\n  'cmd-alt-a': 'iex:run-all-tests'\n  'cmd-alt-p': 'iex:pretty-print'\n\n'.editor':\n  'cmd-alt-h': 'iex:help'\n  'cmd-alt-o': 'iex:gotoDefinition'\n  'cmd-alt-x': 'iex:run-tests'\n  'cmd-alt-j': 'iex:run-test'\n  'cmd-alt-b': 'iex:pipe'\n```\n\nAdding these will provide the following:\n\n#### Key Bindings and Events\n\n| key binding | event | action |\n| ----------- | ----- | ------ |\n| `cmd + alt + l` | `iex:open` | Opens new IEx in new tab pane |\n| `cmd + alt + l down` | `iex:open-split-up` | Opens new IEx tab pane in up split |\n| `cmd + alt + l right` | `iex:open-split-right` | Opens new IEx tab pane in right split |\n| `cmd + alt + l down` | `iex:open-split-down` | Opens new IEx tab pane in down split |\n| `cmd + alt + l left` | `iex:open-split-left` | Opens new IEx tab pane in left split |\n| `cmd + alt + e` | `iex:reset` | Stops the application, compiles any changed files with mix, then restarts the application. |\n| `cmd + alt + a` | `iex:run-all-tests` | Run all the test in the project |\n| `cmd + alt + x` | `iex:run-tests` | Run all the tests in the active editor |\n| `cmd + alt + j` | `iex:run-test` | Run the test in which the cursor lies |\n| `cmd + alt + h` | `iex:help` | Print the docstring for the function or module under the cursor |\n| `cmd + alt + o` | `iex:gotoDefinition`| Jump to the definition of the function or module under the cursor |\n| `cmd + alt + b` | `iex:pipe` | Pipe the currently selected text to the REPL and execute it |\n| `cmd + alt + p` | `iex:pretty-print` | Pretty print the last evaluated expression |\n\n### Fonts\nYou can set the font size by adding the following to your Atom stylesheet.\n`Atom menu - Open your stylesheet)`\nChange the font, font-size, and heights as desired.\n\n    .iex {\n      .terminal {\n        font-family: Menlo, Monaco, Inconsolata, monospace;\n        font-size: 14px;\n\n         div {\n          height: 18px;\n          line-height: 18px;\n\n        }\n      }\n    }\n\n### Contributions\n\nThis package is originally based on the [Term2 Atom package](https://atom.io/packages/term2) with heavy modifications. Feel free to submit bugs or issue pull requests.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/indiejames/atom-iex/issues"
   },
   "homepage": "https://github.com/indiejames/atom-iex",
-  "_id": "iex@0.9.11",
-  "_shasum": "921857bc8a8b787a4642e374f185f21963ef54b9",
-  "_resolved": "file:../d-11566-80585-p4s3yv/package.tgz",
-  "_from": "../d-11566-80585-p4s3yv/package.tgz",
+  "_id": "iex@0.9.13",
+  "_shasum": "ab767af59c010e6a7eac7f288c08ad78bc83fbc5",
+  "_resolved": "file:../d-11573-59573-cwsu4k/package.tgz",
+  "_from": "../d-11573-59573-cwsu4k/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -79,7 +79,7 @@
       },
       {
         "name": "amdefine",
-        "version": "0.1.1",
+        "version": "1.0.0",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
@@ -149,7 +149,7 @@
       },
       {
         "name": "nan",
-        "version": "1.8.4",
+        "version": "1.9.0",
         "path": "node_modules/child_pty/node_modules/nan/include_dirs.js"
       },
       {
@@ -754,6 +754,28 @@
         "node_modules/child_pty/lib/child_pty.js",
         "node_modules/child_pty/node_modules/extend/index.js",
         "node_modules/child_pty/node_modules/nan/include_dirs.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/commander/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/commander/node_modules/graceful-readlink/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/common.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/glob.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inflight/inflight.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inflight/node_modules/wrappy/wrappy.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inflight/test.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inherits/inherits.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inherits/inherits_browser.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inherits/test.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/browser.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/minimatch.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/example.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/example.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/example/map.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/once/once.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/path-is-absolute/index.js",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/sync.js",
         "node_modules/fs-plus/lib/fs-plus.js",
         "node_modules/fs-plus/node_modules/async/lib/async.js",
         "node_modules/fs-plus/node_modules/mkdirp/examples/pow.js",
@@ -799,6 +821,19 @@
         "node_modules/child_pty/node_modules/extend/component.json",
         "node_modules/child_pty/node_modules/extend/package.json",
         "node_modules/child_pty/node_modules/nan/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/commander/node_modules/graceful-readlink/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/commander/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inflight/node_modules/wrappy/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inflight/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/inherits/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/minimatch/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/once/node_modules/wrappy/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/once/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/node_modules/path-is-absolute/package.json",
+        "node_modules/child_pty/node_modules/nan/tools/node_modules/glob/package.json",
         "node_modules/child_pty/package.json",
         "node_modules/fs-plus/node_modules/async/component.json",
         "node_modules/fs-plus/node_modules/async/package.json",
